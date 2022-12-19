@@ -263,7 +263,7 @@ let stringifyWrapper = (value, replacer, space, intensity, callback) => {
   let g = rs.next();
 
   let yieldCPU = () => {
-    setImmediate(() => {
+    setTimeout(() => {
       g = rs.next();
       if (g && g.done === true) {
         // Reinitializing the values at the end of API call
@@ -276,9 +276,9 @@ let stringifyWrapper = (value, replacer, space, intensity, callback) => {
           return callback(null, yielding);
       }
       yieldCPU();
-    });
+    }, 0);
   };
   return yieldCPU();
 };
 
-exports.stringifyWrapper = stringifyWrapper;
+export default { stringifyWrapper };

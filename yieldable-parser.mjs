@@ -310,7 +310,7 @@ let parseWrapper = (text, reviver, intensity, cb) => {
 
   // Main yield control logic.
   let yieldCPU = () => {
-    setImmediate(() => {
+    setTimeout(() => {
       gen = rs.next();
 
       if (gen && gen.done === true) {
@@ -336,9 +336,9 @@ let parseWrapper = (text, reviver, intensity, cb) => {
         }
       }
       yieldCPU();
-    });
+    }, 0);
   };
   return yieldCPU();
 };
 
-exports.parseWrapper = parseWrapper;
+export default { parseWrapper };
